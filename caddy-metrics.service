@@ -1,0 +1,11 @@
+[Unit]
+Description=Caddy Metrics Exporter
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/usr/local/caddy-metrics
+ExecStart=/usr/local/caddy-metrics/target/release/caddy-metrics
+
+[Install]
+WantedBy=multi-user.target
