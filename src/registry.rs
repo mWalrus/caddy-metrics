@@ -29,16 +29,15 @@ lazy_static! {
 
 pub fn init() -> Registry {
     let mut registry = <Registry>::default();
-    registry.sub_registry_with_prefix("http");
 
     registry.register(
-        "requests",
+        "cm_http_requests",
         "Number of HTTP requests received",
         HTTP_REQUESTS_TOTAL.clone(),
     );
 
     registry.register(
-        "response_time_seconds",
+        "cm_http_response_time_seconds",
         "Duration of HTTP responses",
         HTTP_RESPONSE_TIME_SECONDS.clone(),
     );
