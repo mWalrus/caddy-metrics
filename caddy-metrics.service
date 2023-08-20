@@ -5,7 +5,7 @@ Description=Caddy Metrics Exporter
 User=www-data
 Group=www-data
 WorkingDirectory=/usr/local/caddy-metrics
-ExecStart=/usr/local/caddy-metrics/target/release/caddy-metrics
+ExecStart=/usr/local/caddy-metrics/target/release/caddy-metrics -f /var/log/caddy-logs/requests.log
 
 [Install]
 WantedBy=multi-user.target

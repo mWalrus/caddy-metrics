@@ -13,6 +13,21 @@ echo "{\"level\":\"info\",\"ts\":1692530118.2489564,\"logger\":\"http.log.access
 ## Defining a matcher
 go to [matchers.rs](./src/matchers.rs) and define them like shown in `init`.
 
+
+## Setup
+### Cloning
+- `git clone https://github.com/mWalrus/caddy-metrics /usr/local/caddy-metrics`
+
+### Logging
+Add this to each of your host blocks in your Caddyfile:
+```
+log {
+  output file /var/log/caddy-logs/requests.log {
+    roll_keep 1
+  }
+  format json
+}  
+```
+
 ## Run
-1. `cargo build`
-2. `./target/release/caddy-metrics -f /absolute/path/to/log/file.log`
+Run `./install.sh` in the project root.
