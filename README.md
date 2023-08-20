@@ -22,9 +22,7 @@ go to [matchers.rs](./src/matchers.rs) and define them like shown in `init`.
 Add this to each of your host blocks in your Caddyfile:
 ```
 log {
-  output file /var/log/caddy-logs/requests.log {
-    roll_keep 1
-  }
+  output file /var/log/caddy/requests.log
   format json
 }  
 ```
