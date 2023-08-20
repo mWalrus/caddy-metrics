@@ -1,7 +1,7 @@
 use std::{
     fs::File,
     io::{BufRead, BufReader, Seek, SeekFrom},
-    path::PathBuf,
+    path::Path,
     sync::{Arc, Mutex},
     thread,
 };
@@ -30,7 +30,9 @@ pub struct RequestData {
 
 pub type LogQueue = Arc<Mutex<Vec<LogEntry>>>;
 
-pub fn watch(file_path: PathBuf) -> anyhow::Result<LogQueue> {
+static LOG_PATH: &str = "/var/log/caddy/requests.log";
+
+pub fn watch() -> anyhow::Result<LogQueue> {
     // drain the queue when processing events
     let log_queue = Arc::new(Mutex::new(Vec::<LogEntry>::new()));
     let queue_clone = Arc::clone(&log_queue);
@@ -38,12 +40,12 @@ pub fn watch(file_path: PathBuf) -> anyhow::Result<LogQueue> {
     thread::spawn(move || -> anyhow::Result<()> {
         let (tx, rx) = crossbeam::channel::bounded(1);
         let mut watcher = RecommendedWatcher::new(tx, Config::default())?;
-        watcher.watch(&file_path, notify::RecursiveMode::NonRecursive)?;
+        watcher.watch(Path::new(LOG_PATH), notify::RecursiveMode::NonRecursive)?;
 
         let mut read_state = ReadState { cursor: 0 };
         loop {
             match rx.recv() {
-                Ok(Ok(_e)) => match File::open(&file_path) {
+                Ok(Ok(_e)) => match File::open(LOG_PATH) {
                     Ok(mut file) => {
                         let size = file.metadata()?.len();
                         // skip iteration if size has not changed
