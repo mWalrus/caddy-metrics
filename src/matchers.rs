@@ -11,9 +11,13 @@ pub struct Matcher {
 #[derive(Clone, Debug, Hash, PartialEq, Eq, EncodeLabelValue)]
 pub enum Method {
     GET,
+    HEAD,
     POST,
     PUT,
     DELETE,
+    CONNECT,
+    OPTIONS,
+    TRACE,
     PATCH,
     UNKNOWN,
 }
@@ -22,9 +26,13 @@ impl From<&str> for Method {
     fn from(value: &str) -> Self {
         match value {
             "GET" => Self::GET,
+            "HEAD" => Self::HEAD,
             "POST" => Self::POST,
-            "DELETE" => Self::DELETE,
             "PUT" => Self::PUT,
+            "DELETE" => Self::DELETE,
+            "CONNECT" => Self::CONNECT,
+            "OPTIONS" => Self::OPTIONS,
+            "TRACE" => Self::TRACE,
             "PATCH" => Self::PATCH,
             _ => Self::UNKNOWN,
         }
