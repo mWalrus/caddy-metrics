@@ -64,6 +64,7 @@ impl Matcher {
 pub fn init() -> Vec<Matcher> {
     vec![
         Matcher::new("tm.waalrus.xyz", "^/np/map/", Method::GET),
+        Matcher::new("tm.waalrus.xyz", "^/pos/", Method::GET),
         Matcher::new("i.waalrus.xyz", "^/", Method::GET),
         Matcher::new("i.waalrus.xyz", "^/upload", Method::POST),
         Matcher::new("i.waalrus.xyz", "^/delete/", Method::DELETE),
